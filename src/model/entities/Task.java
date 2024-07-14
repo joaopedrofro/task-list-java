@@ -1,8 +1,8 @@
 package model.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class Task implements Serializable {
@@ -11,20 +11,24 @@ public class Task implements Serializable {
 	
 	private Integer ID;
 	private String title;
-	private LocalDate date;
-	private Boolean done;
-	private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+	private Date date;
+	private Boolean done = false;
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public Task() {
 		super();
 	}
 
-	public Task(Integer iD, String title, LocalDate date, Boolean done) {
+	public Task(Integer iD, String title, Date date, Boolean done) {
 		super();
 		ID = iD;
 		this.title = title;
 		this.date = date;
 		this.done = done;
+	}
+
+	public void setID(Integer iD) {
+		ID = iD;
 	}
 
 	public String getTitle() {
@@ -35,11 +39,11 @@ public class Task implements Serializable {
 		this.title = title;
 	}
 
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
