@@ -9,7 +9,6 @@ import java.util.Scanner;
 import model.entities.Task;
 import model.entities.TaskCreationException;
 import model.entities.TaskException;
-import model.entities.TaskManager;
 
 public final class UI {
 	

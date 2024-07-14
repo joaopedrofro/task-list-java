@@ -1,68 +1,84 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
-public class Task implements Comparable<Task> {
-	private String title;
-	private final Integer ID;
-	private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	private LocalDate creationDate;
-	private Boolean complete;
+public class Task implements Serializable {
 	
-	public Task(String title, Integer id) throws TaskCreationException {
-		if (title.isEmpty()) {
-			throw new TaskCreationException("O título da tarefa não por ser vazio!");
-		}
-		this.title = title;
-		this.creationDate = LocalDate.now();
-		this.ID = id;
-		this.complete = false;
+	private static final long serialVersionUID = 1L;
+	
+	private Integer ID;
+	private String title;
+	private LocalDate date;
+	private Boolean done;
+	private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+	
+	public Task() {
+		super();
 	}
 
-	@Override
-	public int compareTo(Task otherTask) {
-		LocalDate otherTaskCreationDate = otherTask.getCreationDate();
-		return creationDate.compareTo(otherTaskCreationDate);
+	public Task(Integer iD, String title, LocalDate date, Boolean done) {
+		super();
+		ID = iD;
+		this.title = title;
+		this.date = date;
+		this.done = done;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) throws TaskException {
-		if (title.isEmpty()) {
-			throw new TaskException("O título da tarefa não por ser vazio!");
-		}
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public Boolean isComplete() {
-		return complete;
+	public LocalDate getDate() {
+		return date;
 	}
 
-	public void complete() {
-		this.complete = true;
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public Boolean isDone() {
+		return done;
+	}
+
+	public void done() {
+		this.done = true;
 	}
 	
-	public void uncomplete() {
-		this.complete = false;
+	public void undone() {
+		this.done = false;
 	}
 
 	public Integer getID() {
 		return ID;
 	}
 
-	public LocalDate getCreationDate() {
-		return creationDate;
+	@Override
+	public int hashCode() {
+		return Objects.hash(ID);
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Task other = (Task) obj;
+		return Objects.equals(ID, other.ID);
+	}
+
 	@Override
 	public String toString() {
-		if (complete) {
-			return String.format("%d - [x] - %s - %s", ID, title, creationDate.format(dateFormatter));
-		} else {
-			return String.format("%d - [ ] - %s - %s", ID, title, creationDate.format(dateFormatter));
-		}
+		return "Task [ID=" + ID + ", title=" + title + ", date=" + dateFormatter.format(date) + ", done=" + done + "]";
 	}
+
 }

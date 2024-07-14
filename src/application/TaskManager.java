@@ -1,8 +1,10 @@
-package model.entities;
+package application;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import model.entities.Task;
 
 public class TaskManager {
 	private List<Task> taskList = new ArrayList<>();
