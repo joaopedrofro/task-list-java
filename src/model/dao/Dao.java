@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface Dao<E> {
 
-	void insert(E e);
+	Integer insert(E e);
 
 	void update(E e);
 
@@ -12,6 +12,6 @@ public interface Dao<E> {
 
 	List<E> getAll();
 
-	E getById();
+	E getById(Integer id);
 
 }
